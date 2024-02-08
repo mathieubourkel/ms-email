@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  await app.listen(process.env.APP_PORT, process.env.APP_HOST);
+  console.log(`[MS-MAIL] URL : ${process.env.APP_HOST}:${process.env.APP_PORT}`)
 }
 bootstrap();
