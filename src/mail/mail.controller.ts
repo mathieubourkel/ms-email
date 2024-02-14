@@ -1,17 +1,20 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, InternalServerErrorException } from '@nestjs/common';
 import { MailService } from './mail.service';
+import { BaseUtils } from 'libs/base/base.utils';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller('mail')
-export class MailController {
-  constructor(private readonly mailService: MailService) {}
+export class MailController extends BaseUtils {
+  constructor(private readonly mailService: MailService) {
+    super()
+  }
 
-  @Post()
-  sendMail(@Body() body: any) {
+  @MessagePattern("SEND_MAIL")
+  sendMail(@Payload() body: any) {
     try {
       return this.mailService.sendConfirmationEmail(body.emailAddress, body.confirmUrl);
     } catch (error) {
-      console.log(error)
-      throw new InternalServerErrorException()
+      this._catchEx(error)
     }
   }
 }
