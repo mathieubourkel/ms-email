@@ -32,6 +32,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "bull": "^4.12.2",
     "handlebars": "^4.7.8",
+    "nats": "^2.19.0",
     "nodemailer": "^6.9.9",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
