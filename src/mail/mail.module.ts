@@ -26,7 +26,7 @@ import { MailController } from "./mail.controller";
         },
         defaults: { from: 'Chappy Administrator' }, // the header of the received emails is defined here. Customize this for your application.
         template: {
-          dir: __dirname + "/templates", // here you must specify the path where the directory with all email templates is located
+          dir: `dist/mail/templates`, // here you must specify the path where the directory with all email templates is located
           adapter: new HandlebarsAdapter(),
           options: { strict: true },
         },

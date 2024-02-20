@@ -9,10 +9,19 @@ export class MailController extends BaseUtils {
     super()
   }
 
-  @MessagePattern("SEND_MAIL")
-  sendMail(@Payload() body: any) {
+  @MessagePattern("SEND_MAIL_CONFIRM_ACCOUNT")
+  sendMailConfirmAccount(@Payload() body: any) {
     try {
       return this.mailService.sendConfirmationEmail(body.emailAddress, body.confirmUrl);
+    } catch (error) {
+      this._catchEx(error)
+    }
+  }
+
+  @MessagePattern("SEND_MAIL_RESET_PWD")
+  sendMailResetPwd(@Payload() body: any) {
+    try {
+      return this.mailService.sendResetPwdEmail(body.emailAddress, body.confirmUrl);
     } catch (error) {
       this._catchEx(error)
     }

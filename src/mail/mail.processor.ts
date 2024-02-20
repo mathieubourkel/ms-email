@@ -37,6 +37,29 @@ export class MailProcessor {
     }
   }
 
+  @Process("CONFIRM_RESET_PWD")
+  public async confirmResetPwd(
+    job: Job<{ emailAddress: string; confirmUrl: string }>,
+  ) {
+    this._logger.log(
+      `Sending reset Pwd email to '${job.data.emailAddress}'`,
+    );
+
+    try {
+      return this._mailerService.sendMail({
+        to: job.data.emailAddress,
+        from: this._configService.get("EMAIL_ADDRESS"),
+        subject: "Reset Pwd",
+        template: "./resetPwd",
+        context: { confirmUrl: job.data.confirmUrl },
+      });
+    } catch {
+      this._logger.error(
+        `Failed to send reset Pwd email to '${job.data.emailAddress}'`,
+      );
+    }
+  }
+
   @OnQueueActive()
 public onActive(job: Job) {
   this._logger.debug(`Processing job ${job.id} of type ${job.name}`);

@@ -10,5 +10,6 @@ async function bootstrap() {
     }
   });
   app.listen()
+  console.log(`[MS-EMAIL] with NATS`)
 }
 bootstrap();
